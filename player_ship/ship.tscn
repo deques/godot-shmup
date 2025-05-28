@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4a6ddlcuan"]
+[gd_scene load_steps=14 format=3 uid="uid://c4a6ddlcuan"]
 
+[ext_resource type="Script" uid="uid://dtmr460ovy1o1" path="res://player_ship/ship.gd" id="1_etvdo"]
 [ext_resource type="Texture2D" uid="uid://j7ky5gsln0c3" path="res://assets/ship.png" id="1_lyjrp"]
 [ext_resource type="Script" uid="uid://bvtutjnsedgnt" path="res://components/move_component.gd" id="2_y3mk2"]
 [ext_resource type="Script" uid="uid://b8iltqx2dt1o3" path="res://components/move_input_component.gd" id="3_snm6p"]
 [ext_resource type="Resource" uid="uid://debieyda0f431" path="res://player_ship/ship_move_stats.tres" id="4_0n25c"]
 [ext_resource type="Script" uid="uid://dfmh5rssc4i13" path="res://components/position_clamp_component.gd" id="5_6u6rn"]
+[ext_resource type="Script" uid="uid://0wtwl6yoqgis" path="res://components/spawner_component.gd" id="7_6m5c2"]
+[ext_resource type="PackedScene" uid="uid://bmgq4vuv2rp5s" path="res://projectiles/laser.tscn" id="8_le0bn"]
+[ext_resource type="Script" uid="uid://decwiixoog6yw" path="res://components/scale_component.gd" id="9_le0bn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y3mk2"]
 atlas = ExtResource("1_lyjrp")
@@ -46,6 +50,7 @@ animations = [{
 }]
 
 [node name="Ship" type="Node2D"]
+script = ExtResource("1_etvdo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_or36g")
@@ -67,3 +72,23 @@ metadata/_custom_type_script = "uid://b8iltqx2dt1o3"
 script = ExtResource("5_6u6rn")
 actor = NodePath("..")
 metadata/_custom_type_script = "uid://dfmh5rssc4i13"
+
+[node name="LeftMuzzle" type="Marker2D" parent="."]
+position = Vector2(-5, -4)
+
+[node name="RightMuzzle" type="Marker2D" parent="."]
+position = Vector2(5, -4)
+
+[node name="SpawnerComponent" type="Node2D" parent="."]
+script = ExtResource("7_6m5c2")
+scene = ExtResource("8_le0bn")
+metadata/_custom_type_script = "uid://0wtwl6yoqgis"
+
+[node name="FireRateTimer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[node name="ScaleComponent" type="Node" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("9_le0bn")
+sprite = NodePath("../AnimatedSprite2D")
+metadata/_custom_type_script = "uid://decwiixoog6yw"
