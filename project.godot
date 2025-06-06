@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Shmup"
-run/main_scene="uid://cnaaafj330urk"
+run/main_scene="uid://dtowddbgbxh7n"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
