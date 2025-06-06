@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://byxsjmnikiajn"]
+[gd_scene load_steps=15 format=3 uid="uid://byxsjmnikiajn"]
 
 [ext_resource type="Script" uid="uid://dtlhcj47e6ktg" path="res://enemies/enemy.gd" id="1_3t1x0"]
 [ext_resource type="Script" uid="uid://d1xsntqgxcv5r" path="res://components/stats_component.gd" id="1_07tka"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://0wtwl6yoqgis" path="res://components/spawner_component.gd" id="10_ccbdt"]
 [ext_resource type="PackedScene" uid="uid://cuigvoq8lqnux" path="res://effects/explosion_effect.tscn" id="11_mgey2"]
 [ext_resource type="Script" uid="uid://bh6rjp03xd4gv" path="res://components/destroyed_component.gd" id="12_cjbay"]
+[ext_resource type="Script" uid="uid://c3d3uygitrbjm" path="res://components/score_component.gd" id="13_mgey2"]
+[ext_resource type="Resource" uid="uid://dprdxt1yyanko" path="res://game_stats.tres" id="14_cjbay"]
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_3t1x0")
@@ -72,3 +74,8 @@ actor = NodePath("..")
 stats_component = NodePath("../StatsComponent")
 destroy_effect_spawner_component = NodePath("../SpawnerComponent")
 metadata/_custom_type_script = "uid://bh6rjp03xd4gv"
+
+[node name="ScoreComponent" type="Node" parent="."]
+script = ExtResource("13_mgey2")
+game_stats = ExtResource("14_cjbay")
+metadata/_custom_type_script = "uid://c3d3uygitrbjm"
