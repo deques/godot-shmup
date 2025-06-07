@@ -1,3 +1,5 @@
+class_name Enemy
+
 extends Node2D
 
 @onready var stats_component: StatsComponent = $StatsComponent as StatsComponent

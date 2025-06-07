@@ -7,6 +7,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomize()
 	update_score_label(game_stats.score)
 	game_stats.score_changed.connect(update_score_label)
 	ship.tree_exited.connect(func():
