@@ -1,0 +1,118 @@
+[gd_scene load_steps=15 format=3 uid="uid://6rgbv2niqdxy"]
+
+[ext_resource type="PackedScene" uid="uid://byxsjmnikiajn" path="res://enemies/enemy.tscn" id="1_m7bk0"]
+[ext_resource type="Script" uid="uid://cph3us8iuk0nw" path="res://enemies/pink_enemy.gd" id="2_67erp"]
+[ext_resource type="Texture2D" uid="uid://dfw4xh6lueubn" path="res://assets/pink_enemy.png" id="2_psv4m"]
+[ext_resource type="Script" uid="uid://cis82ax2la7xa" path="res://components/timed_state_componoent.gd" id="3_mik3f"]
+[ext_resource type="Script" uid="uid://bvtutjnsedgnt" path="res://components/move_component.gd" id="4_mik3f"]
+[ext_resource type="Script" uid="uid://3wlglamw3bah" path="res://components/border_bounce_component.gd" id="5_mik3f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kney"]
+atlas = ExtResource("2_psv4m")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw4rh"]
+atlas = ExtResource("2_psv4m")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mik3f"]
+atlas = ExtResource("2_psv4m")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_67erp"]
+atlas = ExtResource("2_psv4m")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dxut"]
+atlas = ExtResource("2_psv4m")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0tkce"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kney")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uw4rh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mik3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_67erp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dxut")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_psv4m"]
+radius = 7.07107
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0kney"]
+radius = 5.0
+
+[node name="PinkEnemy" instance=ExtResource("1_m7bk0")]
+script = ExtResource("2_67erp")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_0tkce")
+autoplay = "default"
+frame_progress = 0.691784
+
+[node name="StatsComponent" parent="." index="1"]
+health = 6
+
+[node name="VisibleOnScreenNotifier2D" parent="." index="3"]
+position = Vector2(4.76837e-07, -0.5)
+scale = Vector2(0.6, 0.55)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" index="0"]
+shape = SubResource("CircleShape2D_psv4m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("CircleShape2D_0kney")
+
+[node name="ScoreComponent" parent="." index="12"]
+adjust_amount = 20
+
+[node name="States" type="Node" parent="." index="13"]
+
+[node name="MoveDownState" type="Node" parent="States" index="0"]
+unique_name_in_owner = true
+script = ExtResource("3_mik3f")
+duration = 2.0
+metadata/_custom_type_script = "uid://cis82ax2la7xa"
+
+[node name="MoveComponent" type="Node" parent="States/MoveDownState" index="0" node_paths=PackedStringArray("actor")]
+script = ExtResource("4_mik3f")
+actor = NodePath("../../..")
+velocity = Vector2(0, 15)
+metadata/_custom_type_script = "uid://bvtutjnsedgnt"
+
+[node name="MoveSideState" type="Node" parent="States" index="1"]
+unique_name_in_owner = true
+script = ExtResource("3_mik3f")
+duration = 3.0
+metadata/_custom_type_script = "uid://cis82ax2la7xa"
+
+[node name="MoveSideComponent" type="Node" parent="States/MoveSideState" index="0" node_paths=PackedStringArray("actor")]
+unique_name_in_owner = true
+script = ExtResource("4_mik3f")
+actor = NodePath("../../..")
+metadata/_custom_type_script = "uid://bvtutjnsedgnt"
+
+[node name="BorderBounceComponent" type="Node" parent="States/MoveSideState" index="1" node_paths=PackedStringArray("actor", "move_component")]
+script = ExtResource("5_mik3f")
+actor = NodePath("../../..")
+move_component = NodePath("../MoveSideComponent")
+metadata/_custom_type_script = "uid://3wlglamw3bah"
+
+[node name="PauseState" type="Node" parent="." index="14"]
+unique_name_in_owner = true
+script = ExtResource("3_mik3f")
+metadata/_custom_type_script = "uid://cis82ax2la7xa"
